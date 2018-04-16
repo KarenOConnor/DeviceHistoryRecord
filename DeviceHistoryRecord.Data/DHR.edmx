@@ -1,0 +1,507 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DeviceHistoryRecordModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Component">
+          <Key>
+            <PropertyRef Name="ComponentID" />
+          </Key>
+          <Property Name="ComponentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="ScanCode" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="ProductConfig">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductDescription" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DocumentNumber" Type="int" Nullable="false" />
+          <Property Name="Rev" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PrintScanCode" Type="nvarchar(max)" />
+          <Property Name="RevScanCode" Type="nvarchar(max)" />
+          <Property Name="ProductScanCode" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductStages">
+          <Key>
+            <PropertyRef Name="StageID" />
+          </Key>
+          <Property Name="StageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="StageName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Sequence" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StageSteps">
+          <Key>
+            <PropertyRef Name="StageStepsID" />
+          </Key>
+          <Property Name="StageStepsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ComponentID" Type="int" Nullable="false" />
+          <Property Name="StageID" Type="int" Nullable="false" />
+          <Property Name="Sequence" Type="int" Nullable="false" />
+          <Property Name="StepTypeID" Type="int" Nullable="false" />
+          <Property Name="DocumentTemp" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="StepType">
+          <Key>
+            <PropertyRef Name="StepTypeID" />
+          </Key>
+          <Property Name="StepTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StepTypeName" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="WorkItem">
+          <Key>
+            <PropertyRef Name="WorkItemID" />
+          </Key>
+          <Property Name="WorkItemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DeviceHistoryRecord.dbo.WorkItemComponent' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="WorkItemComponent">
+          <Key>
+            <PropertyRef Name="WorkItemID" />
+            <PropertyRef Name="StageStepsID" />
+            <PropertyRef Name="Status" />
+          </Key>
+          <Property Name="WorkItemID" Type="int" Nullable="false" />
+          <Property Name="StageStepsID" Type="int" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="CreatedBy" Type="datetime" />
+          <Property Name="CreatedOn" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_dbo_ProductStages_dbo_ProductConfig_ProductID">
+          <End Role="ProductConfig" Type="Self.ProductConfig" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ProductStages" Type="Self.ProductStages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductConfig">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="ProductStages">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_StageSteps_dbo_Component_ComponentID">
+          <End Role="Component" Type="Self.Component" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="StageSteps" Type="Self.StageSteps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Component">
+              <PropertyRef Name="ComponentID" />
+            </Principal>
+            <Dependent Role="StageSteps">
+              <PropertyRef Name="ComponentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_StageSteps_dbo_ProductStages_StageID">
+          <End Role="ProductStages" Type="Self.ProductStages" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="StageSteps" Type="Self.StageSteps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductStages">
+              <PropertyRef Name="StageID" />
+            </Principal>
+            <Dependent Role="StageSteps">
+              <PropertyRef Name="StageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_StageSteps_dbo_StepType_StepTypeID">
+          <End Role="StepType" Type="Self.StepType" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="StageSteps" Type="Self.StageSteps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StepType">
+              <PropertyRef Name="StepTypeID" />
+            </Principal>
+            <Dependent Role="StageSteps">
+              <PropertyRef Name="StepTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_WorkItem_dbo_ProductConfig_ProductID">
+          <End Role="ProductConfig" Type="Self.ProductConfig" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="WorkItem" Type="Self.WorkItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductConfig">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="WorkItem">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_WorkItemComponent_dbo_WorkItem_WorkItemID">
+          <End Role="WorkItem" Type="Self.WorkItem" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="WorkItemComponent" Type="Self.WorkItemComponent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkItem">
+              <PropertyRef Name="WorkItemID" />
+            </Principal>
+            <Dependent Role="WorkItemComponent">
+              <PropertyRef Name="WorkItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DeviceHistoryRecordModelStoreContainer">
+          <EntitySet Name="Component" EntityType="Self.Component" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductConfig" EntityType="Self.ProductConfig" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductStages" EntityType="Self.ProductStages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StageSteps" EntityType="Self.StageSteps" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StepType" EntityType="Self.StepType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WorkItem" EntityType="Self.WorkItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WorkItemComponent" EntityType="Self.WorkItemComponent" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [WorkItemComponent].[WorkItemID] AS [WorkItemID], 
+    [WorkItemComponent].[StageStepsID] AS [StageStepsID], 
+    [WorkItemComponent].[Status] AS [Status], 
+    [WorkItemComponent].[CreatedBy] AS [CreatedBy], 
+    [WorkItemComponent].[CreatedOn] AS [CreatedOn]
+    FROM [dbo].[WorkItemComponent] AS [WorkItemComponent]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_dbo_ProductStages_dbo_ProductConfig_ProductID" Association="Self.FK_dbo_ProductStages_dbo_ProductConfig_ProductID">
+            <End Role="ProductConfig" EntitySet="ProductConfig" />
+            <End Role="ProductStages" EntitySet="ProductStages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_StageSteps_dbo_Component_ComponentID" Association="Self.FK_dbo_StageSteps_dbo_Component_ComponentID">
+            <End Role="Component" EntitySet="Component" />
+            <End Role="StageSteps" EntitySet="StageSteps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_StageSteps_dbo_ProductStages_StageID" Association="Self.FK_dbo_StageSteps_dbo_ProductStages_StageID">
+            <End Role="ProductStages" EntitySet="ProductStages" />
+            <End Role="StageSteps" EntitySet="StageSteps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_StageSteps_dbo_StepType_StepTypeID" Association="Self.FK_dbo_StageSteps_dbo_StepType_StepTypeID">
+            <End Role="StepType" EntitySet="StepType" />
+            <End Role="StageSteps" EntitySet="StageSteps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_WorkItem_dbo_ProductConfig_ProductID" Association="Self.FK_dbo_WorkItem_dbo_ProductConfig_ProductID">
+            <End Role="ProductConfig" EntitySet="ProductConfig" />
+            <End Role="WorkItem" EntitySet="WorkItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_WorkItemComponent_dbo_WorkItem_WorkItemID" Association="Self.FK_dbo_WorkItemComponent_dbo_WorkItem_WorkItemID">
+            <End Role="WorkItem" EntitySet="WorkItem" />
+            <End Role="WorkItemComponent" EntitySet="WorkItemComponent" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DeviceHistoryRecordModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Component">
+          <Key>
+            <PropertyRef Name="ComponentID" />
+          </Key>
+          <Property Name="ComponentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ScanCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="StageSteps" Relationship="Self.FK_dbo_StageSteps_dbo_Component_ComponentID" FromRole="Component" ToRole="StageSteps" />
+        </EntityType>
+        <EntityType Name="ProductConfig">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DocumentNumber" Type="Int32" Nullable="false" />
+          <Property Name="Rev" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PrintScanCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RevScanCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProductScanCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="ProductStages" Relationship="Self.FK_dbo_ProductStages_dbo_ProductConfig_ProductID" FromRole="ProductConfig" ToRole="ProductStages" />
+          <NavigationProperty Name="WorkItems" Relationship="Self.FK_dbo_WorkItem_dbo_ProductConfig_ProductID" FromRole="ProductConfig" ToRole="WorkItem" />
+        </EntityType>
+        <EntityType Name="ProductStage">
+          <Key>
+            <PropertyRef Name="StageID" />
+          </Key>
+          <Property Name="StageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="StageName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Sequence" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ProductConfig" Relationship="Self.FK_dbo_ProductStages_dbo_ProductConfig_ProductID" FromRole="ProductStages" ToRole="ProductConfig" />
+          <NavigationProperty Name="StageSteps" Relationship="Self.FK_dbo_StageSteps_dbo_ProductStages_StageID" FromRole="ProductStages" ToRole="StageSteps" />
+        </EntityType>
+        <EntityType Name="StageStep">
+          <Key>
+            <PropertyRef Name="StageStepsID" />
+          </Key>
+          <Property Name="StageStepsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ComponentID" Type="Int32" Nullable="false" />
+          <Property Name="StageID" Type="Int32" Nullable="false" />
+          <Property Name="Sequence" Type="Int32" Nullable="false" />
+          <Property Name="StepTypeID" Type="Int32" Nullable="false" />
+          <Property Name="DocumentTemp" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Component" Relationship="Self.FK_dbo_StageSteps_dbo_Component_ComponentID" FromRole="StageSteps" ToRole="Component" />
+          <NavigationProperty Name="ProductStage" Relationship="Self.FK_dbo_StageSteps_dbo_ProductStages_StageID" FromRole="StageSteps" ToRole="ProductStages" />
+          <NavigationProperty Name="StepType" Relationship="Self.FK_dbo_StageSteps_dbo_StepType_StepTypeID" FromRole="StageSteps" ToRole="StepType" />
+        </EntityType>
+        <EntityType Name="StepType">
+          <Key>
+            <PropertyRef Name="StepTypeID" />
+          </Key>
+          <Property Name="StepTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StepTypeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="StageSteps" Relationship="Self.FK_dbo_StageSteps_dbo_StepType_StepTypeID" FromRole="StepType" ToRole="StageSteps" />
+        </EntityType>
+        <EntityType Name="WorkItem">
+          <Key>
+            <PropertyRef Name="WorkItemID" />
+          </Key>
+          <Property Name="WorkItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ProductConfig" Relationship="Self.FK_dbo_WorkItem_dbo_ProductConfig_ProductID" FromRole="WorkItem" ToRole="ProductConfig" />
+          <NavigationProperty Name="WorkItemComponents" Relationship="Self.FK_dbo_WorkItemComponent_dbo_WorkItem_WorkItemID" FromRole="WorkItem" ToRole="WorkItemComponent" />
+        </EntityType>
+        <EntityType Name="WorkItemComponent">
+          <Key>
+            <PropertyRef Name="WorkItemID" />
+            <PropertyRef Name="StageStepsID" />
+            <PropertyRef Name="Status" />
+          </Key>
+          <Property Name="WorkItemID" Type="Int32" Nullable="false" />
+          <Property Name="StageStepsID" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="CreatedBy" Type="DateTime" Precision="3" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="WorkItem" Relationship="Self.FK_dbo_WorkItemComponent_dbo_WorkItem_WorkItemID" FromRole="WorkItemComponent" ToRole="WorkItem" />
+        </EntityType>
+        <Association Name="FK_dbo_StageSteps_dbo_Component_ComponentID">
+          <End Role="Component" Type="Self.Component" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="StageSteps" Type="Self.StageStep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Component">
+              <PropertyRef Name="ComponentID" />
+            </Principal>
+            <Dependent Role="StageSteps">
+              <PropertyRef Name="ComponentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ProductStages_dbo_ProductConfig_ProductID">
+          <End Role="ProductConfig" Type="Self.ProductConfig" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ProductStages" Type="Self.ProductStage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductConfig">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="ProductStages">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_WorkItem_dbo_ProductConfig_ProductID">
+          <End Role="ProductConfig" Type="Self.ProductConfig" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="WorkItem" Type="Self.WorkItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductConfig">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="WorkItem">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_StageSteps_dbo_ProductStages_StageID">
+          <End Role="ProductStages" Type="Self.ProductStage" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="StageSteps" Type="Self.StageStep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductStages">
+              <PropertyRef Name="StageID" />
+            </Principal>
+            <Dependent Role="StageSteps">
+              <PropertyRef Name="StageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_StageSteps_dbo_StepType_StepTypeID">
+          <End Role="StepType" Type="Self.StepType" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="StageSteps" Type="Self.StageStep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StepType">
+              <PropertyRef Name="StepTypeID" />
+            </Principal>
+            <Dependent Role="StageSteps">
+              <PropertyRef Name="StepTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_WorkItemComponent_dbo_WorkItem_WorkItemID">
+          <End Role="WorkItem" Type="Self.WorkItem" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="WorkItemComponent" Type="Self.WorkItemComponent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkItem">
+              <PropertyRef Name="WorkItemID" />
+            </Principal>
+            <Dependent Role="WorkItemComponent">
+              <PropertyRef Name="WorkItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DeviceHistoryRecordEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Components" EntityType="Self.Component" />
+          <EntitySet Name="ProductConfigs" EntityType="Self.ProductConfig" />
+          <EntitySet Name="ProductStages" EntityType="Self.ProductStage" />
+          <EntitySet Name="StageSteps" EntityType="Self.StageStep" />
+          <EntitySet Name="StepTypes" EntityType="Self.StepType" />
+          <EntitySet Name="WorkItems" EntityType="Self.WorkItem" />
+          <EntitySet Name="WorkItemComponents" EntityType="Self.WorkItemComponent" />
+          <AssociationSet Name="FK_dbo_StageSteps_dbo_Component_ComponentID" Association="Self.FK_dbo_StageSteps_dbo_Component_ComponentID">
+            <End Role="Component" EntitySet="Components" />
+            <End Role="StageSteps" EntitySet="StageSteps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ProductStages_dbo_ProductConfig_ProductID" Association="Self.FK_dbo_ProductStages_dbo_ProductConfig_ProductID">
+            <End Role="ProductConfig" EntitySet="ProductConfigs" />
+            <End Role="ProductStages" EntitySet="ProductStages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_WorkItem_dbo_ProductConfig_ProductID" Association="Self.FK_dbo_WorkItem_dbo_ProductConfig_ProductID">
+            <End Role="ProductConfig" EntitySet="ProductConfigs" />
+            <End Role="WorkItem" EntitySet="WorkItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_StageSteps_dbo_ProductStages_StageID" Association="Self.FK_dbo_StageSteps_dbo_ProductStages_StageID">
+            <End Role="ProductStages" EntitySet="ProductStages" />
+            <End Role="StageSteps" EntitySet="StageSteps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_StageSteps_dbo_StepType_StepTypeID" Association="Self.FK_dbo_StageSteps_dbo_StepType_StepTypeID">
+            <End Role="StepType" EntitySet="StepTypes" />
+            <End Role="StageSteps" EntitySet="StageSteps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_WorkItemComponent_dbo_WorkItem_WorkItemID" Association="Self.FK_dbo_WorkItemComponent_dbo_WorkItem_WorkItemID">
+            <End Role="WorkItem" EntitySet="WorkItems" />
+            <End Role="WorkItemComponent" EntitySet="WorkItemComponents" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DeviceHistoryRecordModelStoreContainer" CdmEntityContainer="DeviceHistoryRecordEntities">
+          <EntitySetMapping Name="Components">
+            <EntityTypeMapping TypeName="DeviceHistoryRecordModel.Component">
+              <MappingFragment StoreEntitySet="Component">
+                <ScalarProperty Name="ComponentID" ColumnName="ComponentID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ScanCode" ColumnName="ScanCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductConfigs">
+            <EntityTypeMapping TypeName="DeviceHistoryRecordModel.ProductConfig">
+              <MappingFragment StoreEntitySet="ProductConfig">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ProductDescription" ColumnName="ProductDescription" />
+                <ScalarProperty Name="DocumentNumber" ColumnName="DocumentNumber" />
+                <ScalarProperty Name="Rev" ColumnName="Rev" />
+                <ScalarProperty Name="PrintScanCode" ColumnName="PrintScanCode" />
+                <ScalarProperty Name="RevScanCode" ColumnName="RevScanCode" />
+                <ScalarProperty Name="ProductScanCode" ColumnName="ProductScanCode" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductStages">
+            <EntityTypeMapping TypeName="DeviceHistoryRecordModel.ProductStage">
+              <MappingFragment StoreEntitySet="ProductStages">
+                <ScalarProperty Name="StageID" ColumnName="StageID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="StageName" ColumnName="StageName" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StageSteps">
+            <EntityTypeMapping TypeName="DeviceHistoryRecordModel.StageStep">
+              <MappingFragment StoreEntitySet="StageSteps">
+                <ScalarProperty Name="StageStepsID" ColumnName="StageStepsID" />
+                <ScalarProperty Name="ComponentID" ColumnName="ComponentID" />
+                <ScalarProperty Name="StageID" ColumnName="StageID" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+                <ScalarProperty Name="StepTypeID" ColumnName="StepTypeID" />
+                <ScalarProperty Name="DocumentTemp" ColumnName="DocumentTemp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StepTypes">
+            <EntityTypeMapping TypeName="DeviceHistoryRecordModel.StepType">
+              <MappingFragment StoreEntitySet="StepType">
+                <ScalarProperty Name="StepTypeID" ColumnName="StepTypeID" />
+                <ScalarProperty Name="StepTypeName" ColumnName="StepTypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkItems">
+            <EntityTypeMapping TypeName="DeviceHistoryRecordModel.WorkItem">
+              <MappingFragment StoreEntitySet="WorkItem">
+                <ScalarProperty Name="WorkItemID" ColumnName="WorkItemID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkItemComponents">
+            <EntityTypeMapping TypeName="DeviceHistoryRecordModel.WorkItemComponent">
+              <MappingFragment StoreEntitySet="WorkItemComponent">
+                <ScalarProperty Name="WorkItemID" ColumnName="WorkItemID" />
+                <ScalarProperty Name="StageStepsID" ColumnName="StageStepsID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

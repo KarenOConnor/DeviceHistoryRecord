@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DeviceHistoryRecordModelStoreContainer" CdmEntityContainer="DeviceHistoryRecordEntities">
+    <EntitySetMapping Name="Components">
+      <EntityTypeMapping TypeName="DeviceHistoryRecordModel.Component">
+        <MappingFragment StoreEntitySet="Component">
+          <ScalarProperty Name="ComponentID" ColumnName="ComponentID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ScanCode" ColumnName="ScanCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProductConfigs">
+      <EntityTypeMapping TypeName="DeviceHistoryRecordModel.ProductConfig">
+        <MappingFragment StoreEntitySet="ProductConfig">
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="ProductDescription" ColumnName="ProductDescription" />
+          <ScalarProperty Name="DocumentNumber" ColumnName="DocumentNumber" />
+          <ScalarProperty Name="Rev" ColumnName="Rev" />
+          <ScalarProperty Name="PrintScanCode" ColumnName="PrintScanCode" />
+          <ScalarProperty Name="RevScanCode" ColumnName="RevScanCode" />
+          <ScalarProperty Name="ProductScanCode" ColumnName="ProductScanCode" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProductStages">
+      <EntityTypeMapping TypeName="DeviceHistoryRecordModel.ProductStage">
+        <MappingFragment StoreEntitySet="ProductStages">
+          <ScalarProperty Name="StageID" ColumnName="StageID" />
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="StageName" ColumnName="StageName" />
+          <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StageSteps">
+      <EntityTypeMapping TypeName="DeviceHistoryRecordModel.StageStep">
+        <MappingFragment StoreEntitySet="StageSteps">
+          <ScalarProperty Name="StageStepsID" ColumnName="StageStepsID" />
+          <ScalarProperty Name="ComponentID" ColumnName="ComponentID" />
+          <ScalarProperty Name="StageID" ColumnName="StageID" />
+          <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+          <ScalarProperty Name="StepTypeID" ColumnName="StepTypeID" />
+          <ScalarProperty Name="DocumentTemp" ColumnName="DocumentTemp" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StepTypes">
+      <EntityTypeMapping TypeName="DeviceHistoryRecordModel.StepType">
+        <MappingFragment StoreEntitySet="StepType">
+          <ScalarProperty Name="StepTypeID" ColumnName="StepTypeID" />
+          <ScalarProperty Name="StepTypeName" ColumnName="StepTypeName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WorkItems">
+      <EntityTypeMapping TypeName="DeviceHistoryRecordModel.WorkItem">
+        <MappingFragment StoreEntitySet="WorkItem">
+          <ScalarProperty Name="WorkItemID" ColumnName="WorkItemID" />
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WorkItemComponents">
+      <EntityTypeMapping TypeName="DeviceHistoryRecordModel.WorkItemComponent">
+        <MappingFragment StoreEntitySet="WorkItemComponent">
+          <ScalarProperty Name="WorkItemID" ColumnName="WorkItemID" />
+          <ScalarProperty Name="StageStepsID" ColumnName="StageStepsID" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

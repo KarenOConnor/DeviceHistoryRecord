@@ -1,0 +1,12 @@
+C:\Projects\DeviceHistoryRecord\DeviceHistoryRecord.Data\bin\Debug\DeviceHistoryRecord.Data.dll.config
+C:\Projects\DeviceHistoryRecord\DeviceHistoryRecord.Data\bin\Debug\DeviceHistoryRecord.Data.dll
+C:\Projects\DeviceHistoryRecord\DeviceHistoryRecord.Data\bin\Debug\DeviceHistoryRecord.Data.pdb
+C:\Projects\DeviceHistoryRecord\DeviceHistoryRecord.Data\bin\Debug\EntityFramework.dll
+C:\Projects\DeviceHistoryRecord\DeviceHistoryRecord.Data\bin\Debug\EntityFramework.SqlServer.dll
+C:\Projects\DeviceHistoryRecord\DeviceHistoryRecord.Data\bin\Debug\EntityFramework.xml
+C:\Projects\DeviceHistoryRecord\DeviceHistoryRecord.Data\bin\Debug\EntityFramework.SqlServer.xml
+C:\Projects\DeviceHistoryRecord\DeviceHistoryRecord.Data\obj\Debug\DeviceHistoryRecord.Data.csprojResolveAssemblyReference.cache
+C:\Projects\DeviceHistoryRecord\DeviceHistoryRecord.Data\obj\Debug\DeviceHistoryRecord.Data.csproj.CoreCompileInputs.cache
+C:\Projects\DeviceHistoryRecord\DeviceHistoryRecord.Data\obj\Debug\DeviceHistoryRecord.Data.csproj.CopyComplete
+C:\Projects\DeviceHistoryRecord\DeviceHistoryRecord.Data\obj\Debug\DeviceHistoryRecord.Data.dll
+C:\Projects\DeviceHistoryRecord\DeviceHistoryRecord.Data\obj\Debug\DeviceHistoryRecord.Data.pdb

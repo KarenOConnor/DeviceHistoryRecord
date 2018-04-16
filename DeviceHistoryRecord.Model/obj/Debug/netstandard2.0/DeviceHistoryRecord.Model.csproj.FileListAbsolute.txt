@@ -1,0 +1,9 @@
+C:\Projects\DeviceHistoryRecord\DeviceHistoryRecord.Model\bin\Debug\netstandard2.0\DeviceHistoryRecord.Model.deps.json
+C:\Projects\DeviceHistoryRecord\DeviceHistoryRecord.Model\bin\Debug\netstandard2.0\DeviceHistoryRecord.Model.dll
+C:\Projects\DeviceHistoryRecord\DeviceHistoryRecord.Model\bin\Debug\netstandard2.0\DeviceHistoryRecord.Model.pdb
+C:\Projects\DeviceHistoryRecord\DeviceHistoryRecord.Model\obj\Debug\netstandard2.0\DeviceHistoryRecord.Model.csprojResolveAssemblyReference.cache
+C:\Projects\DeviceHistoryRecord\DeviceHistoryRecord.Model\obj\Debug\netstandard2.0\DeviceHistoryRecord.Model.csproj.CoreCompileInputs.cache
+C:\Projects\DeviceHistoryRecord\DeviceHistoryRecord.Model\obj\Debug\netstandard2.0\DeviceHistoryRecord.Model.AssemblyInfoInputs.cache
+C:\Projects\DeviceHistoryRecord\DeviceHistoryRecord.Model\obj\Debug\netstandard2.0\DeviceHistoryRecord.Model.AssemblyInfo.cs
+C:\Projects\DeviceHistoryRecord\DeviceHistoryRecord.Model\obj\Debug\netstandard2.0\DeviceHistoryRecord.Model.dll
+C:\Projects\DeviceHistoryRecord\DeviceHistoryRecord.Model\obj\Debug\netstandard2.0\DeviceHistoryRecord.Model.pdb

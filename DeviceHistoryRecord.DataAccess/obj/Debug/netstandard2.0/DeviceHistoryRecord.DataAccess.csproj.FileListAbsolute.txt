@@ -1,0 +1,12 @@
+C:\Projects\DeviceHistoryRecord\DeviceHistoryRecord.DataAccess\bin\Debug\netstandard2.0\DeviceHistoryRecord.DataAccess.deps.json
+C:\Projects\DeviceHistoryRecord\DeviceHistoryRecord.DataAccess\bin\Debug\netstandard2.0\DeviceHistoryRecord.DataAccess.dll
+C:\Projects\DeviceHistoryRecord\DeviceHistoryRecord.DataAccess\bin\Debug\netstandard2.0\DeviceHistoryRecord.DataAccess.pdb
+C:\Projects\DeviceHistoryRecord\DeviceHistoryRecord.DataAccess\bin\Debug\netstandard2.0\DeviceHistoryRecord.Model.dll
+C:\Projects\DeviceHistoryRecord\DeviceHistoryRecord.DataAccess\bin\Debug\netstandard2.0\DeviceHistoryRecord.Model.pdb
+C:\Projects\DeviceHistoryRecord\DeviceHistoryRecord.DataAccess\obj\Debug\netstandard2.0\DeviceHistoryRecord.DataAccess.csprojResolveAssemblyReference.cache
+C:\Projects\DeviceHistoryRecord\DeviceHistoryRecord.DataAccess\obj\Debug\netstandard2.0\DeviceHistoryRecord.DataAccess.csproj.CoreCompileInputs.cache
+C:\Projects\DeviceHistoryRecord\DeviceHistoryRecord.DataAccess\obj\Debug\netstandard2.0\DeviceHistoryRecord.DataAccess.AssemblyInfoInputs.cache
+C:\Projects\DeviceHistoryRecord\DeviceHistoryRecord.DataAccess\obj\Debug\netstandard2.0\DeviceHistoryRecord.DataAccess.AssemblyInfo.cs
+C:\Projects\DeviceHistoryRecord\DeviceHistoryRecord.DataAccess\obj\Debug\netstandard2.0\DeviceHistoryRecord.DataAccess.csproj.CopyComplete
+C:\Projects\DeviceHistoryRecord\DeviceHistoryRecord.DataAccess\obj\Debug\netstandard2.0\DeviceHistoryRecord.DataAccess.dll
+C:\Projects\DeviceHistoryRecord\DeviceHistoryRecord.DataAccess\obj\Debug\netstandard2.0\DeviceHistoryRecord.DataAccess.pdb

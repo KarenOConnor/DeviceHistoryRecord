@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5ee2c88b9752402d8f807bae0e5fb8ba" Name="Diagram1">
+        <EntityTypeShape EntityType="DeviceHistoryRecordModel.Component" Width="1.5" PointX="3" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DeviceHistoryRecordModel.ProductConfig" Width="1.5" PointX="0.75" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DeviceHistoryRecordModel.ProductStage" Width="1.5" PointX="3" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="DeviceHistoryRecordModel.StageStep" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DeviceHistoryRecordModel.StepType" Width="1.5" PointX="3" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DeviceHistoryRecordModel.WorkItem" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DeviceHistoryRecordModel.WorkItemComponent" Width="1.5" PointX="5.25" PointY="5" IsExpanded="true" />
+        <AssociationConnector Association="DeviceHistoryRecordModel.FK_dbo_StageSteps_dbo_Component_ComponentID" ManuallyRouted="false" />
+        <AssociationConnector Association="DeviceHistoryRecordModel.FK_dbo_ProductStages_dbo_ProductConfig_ProductID" ManuallyRouted="false" />
+        <AssociationConnector Association="DeviceHistoryRecordModel.FK_dbo_WorkItem_dbo_ProductConfig_ProductID" ManuallyRouted="false" />
+        <AssociationConnector Association="DeviceHistoryRecordModel.FK_dbo_StageSteps_dbo_ProductStages_StageID" ManuallyRouted="false" />
+        <AssociationConnector Association="DeviceHistoryRecordModel.FK_dbo_StageSteps_dbo_StepType_StepTypeID" ManuallyRouted="false" />
+        <AssociationConnector Association="DeviceHistoryRecordModel.FK_dbo_WorkItemComponent_dbo_WorkItem_WorkItemID" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
